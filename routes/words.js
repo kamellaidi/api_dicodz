@@ -16,5 +16,8 @@ router.post('/', wordsController.createWord);
 // Route POST pour créer plusieurs mots
 router.post('/multiple', wordsController.createMultipleWords);
 
+// Route DELETE pour supprimer plusieurs mots 
+router.delete('/multiple', wordsController.deleteMultipleWords);
+
 module.exports = router;
 

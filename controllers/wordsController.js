@@ -92,10 +92,35 @@ const createMultipleWords = async (req, res) => {
   }
 };
 
+// Route DELETE pour supprimer plusieurs mots
+
+// Route DELETE pour supprimer plusieurs mots
+const deleteMultipleWords = async (req, res) => {
+  const wordIds = req.body.wordIds;
+
+  // Validation des données
+  if (!Array.isArray(wordIds) || wordIds.length === 0) {
+    return res.status(400).send('Une liste d\'IDs de mots est requise');
+  }
+
+  try {
+    // Suppression des mots dans la base de données
+    const deletedWords = await Word.deleteMany({ _id: { $in: wordIds } });
+
+    res.status(200).json(deletedWords); // Retourne les informations des mots supprimés
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Erreur lors de la suppression des mots');
+  }
+};
+
+
+
 module.exports = {
   getAllWords,
   updateWord,
   deleteWord,
   createWord,
   createMultipleWords,
+  deleteMultipleWords
 };
