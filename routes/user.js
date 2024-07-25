@@ -2,9 +2,6 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController'); // Importez le contrôleur Word
 
-// Route GET pour récupérer tous les mots
-// router.get('/', userController.getAllWords);
-
 // Route POST pour créer un user
 router.post('/create', userController.createUser);
 // Route POST pour connecter un user

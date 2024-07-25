@@ -114,6 +114,27 @@ const deleteMultipleWords = async (req, res) => {
   }
 };
 
+// Route GET pour rechercher des mots en fonction d'une requête de recherche
+const searchWords = async (req, res) => {
+  const searchQuery = req.query.q || ''; // Récupère la requête de recherche depuis les paramètres de la requête
+
+  try {
+    // Recherche des mots en fonction de la requête
+    const mots = await Word.find({
+      $or: [
+        { wordfr: { $regex: searchQuery, $options: 'i' } }, // Recherche insensible à la casse dans le champ wordfr
+        { worddz: { $regex: searchQuery, $options: 'i' } }, // Recherche insensible à la casse dans le champ worddz
+        { type: { $regex: searchQuery, $options: 'i' } } // Recherche insensible à la casse dans le champ type
+      ]
+    });
+
+    res.json(mots); // Envoie les mots trouvés en réponse
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Erreur lors de la recherche des mots');
+  }
+};
+
 
 
 module.exports = {
@@ -122,5 +143,6 @@ module.exports = {
   deleteWord,
   createWord,
   createMultipleWords,
-  deleteMultipleWords
+  deleteMultipleWords,
+  searchWords
 };

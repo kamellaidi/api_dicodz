@@ -16,8 +16,10 @@ router.post('/', wordsController.createWord);
 // Route POST pour créer plusieurs mots
 router.post('/multiple', wordsController.createMultipleWords);
 
-// Route DELETE pour supprimer plusieurs mots 
+// Route DELETE pour supprimer plusieurs mots
 router.delete('/multiple', wordsController.deleteMultipleWords);
 
-module.exports = router;
+// Route GET pour chercher un mot
+router.get('/search', wordsController.searchWords);
 
+module.exports = router;
